@@ -7,7 +7,11 @@ import six.eared.macaque.common.util.FileUtil;
 import six.eared.macaque.core.client.MacaqueClient;
 import six.eared.macaque.mbean.rmi.HotSwapRmiData;
 import six.eared.macaque.mbean.rmi.RmiResult;
+import six.eared.macaque.server.command.handler.CommandHandlerContext;
 import six.eared.macaque.server.config.LoggerName;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class DefaultCommandExecutor implements CommandExecutor {
 
@@ -31,8 +35,15 @@ public class DefaultCommandExecutor implements CommandExecutor {
             return;
         }
 
-        if (command[0].equals("quit")) {
-            System.exit(-1);
+//        if (command[0].equals("quit")) {
+//            System.exit(-1);
+//        }
+        try {
+            CommandHandlerContext.handle(command[0]);
+        } catch (ClassNotFoundException | IOException | InvocationTargetException | NoSuchMethodException |
+                 InstantiationException | IllegalAccessException e) {
+            log.error("error", e);
+            return;
         }
 
         String classPath = command[0];
