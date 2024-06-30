@@ -1,6 +1,5 @@
 package six.eared.macaque.agent.asm2.classes;
 
-import lombok.Data;
 import six.eared.macaque.agent.asm2.AsmField;
 import six.eared.macaque.agent.asm2.AsmMethod;
 import six.eared.macaque.agent.asm2.AsmUtil;
@@ -10,7 +9,6 @@ import six.eared.macaque.asm.ClassVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class ClazzDefinition implements Cloneable, Definition {
 
     private String className;
@@ -25,16 +23,40 @@ public class ClazzDefinition implements Cloneable, Definition {
 
     private List<CorrelationClazzDefinition> correlationClasses;
 
-    private final List<AsmMethod> asmMethods = new ArrayList<>();
+    private List<AsmMethod> asmMethods = new ArrayList<>();
 
-    private final List<AsmField> asmFields = new ArrayList<>();
+    private List<AsmField> asmFields = new ArrayList<>();
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public void addAsmMethod(AsmMethod method) {
         this.asmMethods.add(method);
     }
 
+    public List<AsmMethod> getAsmMethods() {
+        return asmMethods;
+    }
+
     public void addAsmField(AsmField asmField) {
         asmFields.add(asmField);
+    }
+
+    public List<AsmField> getAsmFields() {
+        return asmFields;
+    }
+
+    public byte[] getByteCode() {
+        return byteCode;
+    }
+
+    public void setByteCode(byte[] byteCode) {
+        this.byteCode = byteCode;
     }
 
     @Override
@@ -60,7 +82,9 @@ public class ClazzDefinition implements Cloneable, Definition {
     }
 
     public AsmMethod getMethod(String name, String desc) {
-        return getMethod(name+"#"+desc);
+        return asmMethods.stream()
+                .filter(item -> item.getMethodName().equals(name) && item.getDesc().equals(desc))
+                .findAny().get();
     }
 
     public AsmMethod getMethod(String uniqueDesc) {

@@ -1,17 +1,14 @@
 package six.eared.macaque.agent.asm2;
 
 
-import lombok.Data;
 import six.eared.macaque.agent.asm2.enhance.MethodBindInfo;
 import six.eared.macaque.asm.Opcodes;
 
 import java.util.Objects;
 
-
 /**
  *
  */
-@Data
 public class AsmMethod {
 
     private String className;
@@ -27,6 +24,34 @@ public class AsmMethod {
     private String[] exceptions;
 
     private MethodBindInfo methodBindInfo;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public String getMethodSign() {
+        return methodSign;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String[] getExceptions() {
+        return exceptions;
+    }
+
+    public MethodBindInfo getMethodBindInfo() {
+        return methodBindInfo;
+    }
+
+    public void setMethodBindInfo(MethodBindInfo methodBindInfo) {
+        this.methodBindInfo = methodBindInfo;
+    }
 
     public boolean isPrivate() {
         return (this.modifier & Opcodes.ACC_PRIVATE) > 0;

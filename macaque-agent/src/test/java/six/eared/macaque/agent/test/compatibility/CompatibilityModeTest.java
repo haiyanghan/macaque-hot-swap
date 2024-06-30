@@ -7,7 +7,6 @@ import six.eared.macaque.agent.test.EarlyClass;
 import six.eared.macaque.agent.test.Env;
 import six.eared.macaque.agent.test.asm.AsmMethodPrinter;
 import six.eared.macaque.agent.test.asm.BinaryClassPrint;
-import six.eared.macaque.asm.ClassReader;
 import six.eared.macaque.asm.ClassVisitor;
 import six.eared.macaque.common.ExtPropertyName;
 import six.eared.macaque.common.util.FileUtil;
@@ -40,7 +39,7 @@ public class CompatibilityModeTest extends Env {
                 .getResourceAsStream("AddNewSimpleMethod2.java"))).get(0);
         ClassHotSwapHandler classHotSwapHandler = new ClassHotSwapHandler();
         classHotSwapHandler.handlerRequest(new HotSwapRmiData("class", bytes, compatibilityMode()));
-        Assert.assertEquals(earlyClass.test2(), "_newMethod");
+        Assert.assertEquals(earlyClass.test2(), "_newMethod1");
     }
 
 

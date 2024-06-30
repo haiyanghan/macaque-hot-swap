@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
 }
 
 group = 'six.eared.macaque'
@@ -18,6 +19,9 @@ dependencies {
     implementation project(':library:macaque-mybatis')
     implementation project(':library:macaque-spring')
     implementation 'org.projectlombok:lombok:1.18.24'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
     testImplementation 'junit:junit:4.13.1'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
@@ -75,5 +79,15 @@ task lightwidhtJar(type: Jar, dependsOn: compileJava) {
                 'Can-Retransform-Classes': 'true',
                 'Manifest-Version': "${projectVersion}"
         )
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }

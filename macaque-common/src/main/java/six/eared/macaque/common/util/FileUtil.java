@@ -137,6 +137,9 @@ public class FileUtil {
      * @return
      */
     public static String getProcessTmpPath() {
+        if (1 == 1) {
+            return "C:\\Users\\hanhaiyang\\IdeaProjects\\macaque-hotswap\\macaque-agent\\build" + File.separator;
+        }
         if (TMP_DIR == null) {
             String tmpdir = System.getProperty("java.io.tmpdir");
             if (StringUtil.isEmpty(tmpdir)) {
